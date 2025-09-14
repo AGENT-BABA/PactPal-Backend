@@ -83,7 +83,7 @@ app.use(cors({
 }));
 
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(express.json({ limit: "5mb" })); // Increased to handle 2MB files
 app.use(express.urlencoded({ limit: "5mb", extended: true }));
 
@@ -147,9 +147,10 @@ app.post("/api/simplify-text", async (req, res) => {
     console.log(`✅ Document processing complete. Final summary: ${finalSummary.length} characters`);
 
     res.status(200).json({ summary: finalSummary });
+    res.status(200).json({ summary: finalSummary || "No summary generated" });
   } catch (error) {
-    console.error("❌ Error calling Vertex AI API:", error);
-    res.status(500).json({ error: "Failed to simplify document." });
+    console.error("❌ Error:", error);
+    res.status(500).json({ error: error.message || "Failed to simplify document" });
   }
 });
 
