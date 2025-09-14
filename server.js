@@ -1,3 +1,7 @@
+app.use(cors({
+  origin: "https://pactpal-frontend.onrender.com",
+  methods: ["GET", "POST"],
+}));
 
 import express from "express";
 import { VertexAI } from "@google-cloud/vertexai";
