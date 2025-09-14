@@ -1,7 +1,3 @@
-app.use(cors({
-  origin: "https://pactpal-frontend.onrender.com",
-  methods: ["GET", "POST"],
-}));
 
 import express from "express";
 import { VertexAI } from "@google-cloud/vertexai";
@@ -80,6 +76,11 @@ const chunkDocument = (text, maxChunkSize = 50000) => { // 50k characters per ch
 
 const app = express();
 const port = 3001;
+
+app.use(cors({
+  origin: "https://pactpal-frontend.onrender.com",
+  methods: ["GET", "POST"],
+}));
 
 // Middleware
 app.use(cors());
