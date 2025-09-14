@@ -257,16 +257,6 @@ Key Points:`;
   }
 });
 
-const S = await fetch(Yu.EXTRACT_CLAUSES, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ documentContent: a })
-});
-
-if (!S.ok) {
-  throw new Error(`Clause extraction failed (status ${S.status})`);
-}
-
 // Handle empty response (204 No Content)
 if (S.status === 204) {
   t([]);
