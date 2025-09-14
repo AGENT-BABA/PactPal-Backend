@@ -257,6 +257,20 @@ Key Points:`;
   }
 });
 
+const S=await fetch(Yu.EXTRACT_CLAUSES,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({documentContent:a})});
+if(!S.ok)throw new Error("Clause extraction failed");
+
+// Check if the response has content before attempting to parse as JSON
+if (S.status === 204) {
+  // Handle the case where the server returns no content, e.g., set clauses to an empty array
+  t([]);
+  console.log("✅ Clause extraction complete (no clauses found)");
+} else {
+  const E=await S.json();
+  t(E.clauses);
+  console.log("✅ Clause extraction complete");
+}
+
 // Start the server
 app.listen(port, () => {
   console.log(`🚀 Legal Helper Backend Server`);
