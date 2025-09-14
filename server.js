@@ -257,27 +257,6 @@ Key Points:`;
   }
 });
 
-// Handle empty response (204 No Content)
-if (S.status === 204) {
-  t([]);
-  console.log("✅ Clause extraction complete (no clauses found)");
-} else {
-  const text = await S.text(); // read raw response first
-  if (!text) {
-    t([]);
-    console.warn("⚠️ Backend returned empty body, setting clauses to []");
-  } else {
-    try {
-      const E = JSON.parse(text);
-      t(E.clauses || []);
-      console.log("✅ Clause extraction complete");
-    } catch (err) {
-      console.error("❌ Failed to parse backend JSON:", err, "Raw:", text);
-      throw new Error("Invalid JSON from backend");
-    }
-  }
-}
-
 
 // Start the server
 app.listen(port, () => {
