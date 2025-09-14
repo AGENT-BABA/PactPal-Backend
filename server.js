@@ -257,19 +257,37 @@ Key Points:`;
   }
 });
 
-const S=await fetch(Yu.EXTRACT_CLAUSES,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({documentContent:a})});
-if(!S.ok)throw new Error("Clause extraction failed");
+const S = await fetch(Yu.EXTRACT_CLAUSES, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ documentContent: a })
+});
 
-// Check if the response has content before attempting to parse as JSON
+if (!S.ok) {
+  throw new Error(`Clause extraction failed (status ${S.status})`);
+}
+
+// Handle empty response (204 No Content)
 if (S.status === 204) {
-  // Handle the case where the server returns no content, e.g., set clauses to an empty array
   t([]);
   console.log("✅ Clause extraction complete (no clauses found)");
 } else {
-  const E=await S.json();
-  t(E.clauses);
-  console.log("✅ Clause extraction complete");
+  const text = await S.text(); // read raw response first
+  if (!text) {
+    t([]);
+    console.warn("⚠️ Backend returned empty body, setting clauses to []");
+  } else {
+    try {
+      const E = JSON.parse(text);
+      t(E.clauses || []);
+      console.log("✅ Clause extraction complete");
+    } catch (err) {
+      console.error("❌ Failed to parse backend JSON:", err, "Raw:", text);
+      throw new Error("Invalid JSON from backend");
+    }
+  }
 }
+
 
 // Start the server
 app.listen(port, () => {
