@@ -17,8 +17,8 @@ const keyFilename = join(__dirname, "keys", "my_key.json");
 // Set the environment variable for authentication
 process.env.GOOGLE_APPLICATION_CREDENTIALS = keyFilename;
 
-const project_id = process.env.GCLOUD_PROJECT_ID || "text-simplifier-471608";
-const location = process.env.GCLOUD_LOCATION || "us-central1";
+const project_id = process.env.GCLOUD_PROJECT_ID;
+const location = process.env.GCLOUD_LOCATION ;
 
 // Initialize Vertex AI client
 const vertex_ai = new VertexAI({
@@ -261,7 +261,6 @@ Key Points:`;
 // Start the server
 app.listen(port, () => {
   console.log(`🚀 Legal Helper Backend Server`);
-  console.log(`📡 Listening at http://localhost:${port}`);
   console.log(`🔧 Project ID: ${project_id}`);
   console.log(`📍 Location: ${location}`);
   console.log(`🤖 Model: gemini-2.5-flash`);

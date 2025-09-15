@@ -5,7 +5,7 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const keyFilename = join(__dirname, "..", "keys", "my_key.json");
+const keyFilename = join(__dirname ,"keys", "my_key.json");
 process.env.GOOGLE_APPLICATION_CREDENTIALS = keyFilename;
 
 const project_id = "text-simplifier-471608";
