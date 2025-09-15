@@ -77,6 +77,7 @@ const chunkDocument = (text, maxChunkSize = 50000) => { // 50k characters per ch
 const app = express();
 const port = process.env.PORT || 3001;
 
+// CORS configuration
 app.use(cors({
   origin: process.env.FRONTEND_URL,
   methods: ["GET", "POST"],
