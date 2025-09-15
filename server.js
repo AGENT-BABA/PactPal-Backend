@@ -36,6 +36,7 @@ const vertex_ai = new VertexAI({
 });
 
 
+
 const generativeModel = vertex_ai.getGenerativeModel({
   model: "gemini-2.5-flash",
   generationConfig: {
