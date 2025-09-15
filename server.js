@@ -138,8 +138,11 @@ app.post("/api/simplify-text", async (req, res) => {
           await new Promise(resolve => setTimeout(resolve, 2000));
         }
       } catch (error) {
-        console.error(`❌ Error processing chunk ${i + 1}:`, error.message);
+        console.error(`❌ Error processing chunk ${i + 1}:`, error);
         // Continue with other chunks even if one fails
+        if (error.response?.status) {
+          console.error("Status:", error.response.status, error.response.data);
+        }
         allSummaries.push(`[Error processing section ${i + 1}]`);
       }
     }
