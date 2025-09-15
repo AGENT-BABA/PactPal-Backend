@@ -20,9 +20,6 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS = keyFilename;
 const project_id = process.env.GCLOUD_PROJECT_ID;
 const location = process.env.GCLOUD_LOCATION ;
 
-// Initialize Vertex AI client
-const { VertexAI } = require("@google-cloud/vertexai");
-
 // Parse service account from env
 const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
 
