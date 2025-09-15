@@ -75,11 +75,12 @@ const chunkDocument = (text, maxChunkSize = 50000) => { // 50k characters per ch
 };
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 app.use(cors({
-  origin: "https://pactpal-frontend.onrender.com",
+  origin: process.env.FRONTEND_URL,
   methods: ["GET", "POST"],
+  credentials: true
 }));
 
 // Middleware
@@ -146,7 +147,6 @@ app.post("/api/simplify-text", async (req, res) => {
     const finalSummary = allSummaries.join('\n\n');
     console.log(`✅ Document processing complete. Final summary: ${finalSummary.length} characters`);
 
-    res.status(200).json({ summary: finalSummary });
     res.status(200).json({ summary: finalSummary || "No summary generated" });
   } catch (error) {
     console.error("❌ Error:", error);
@@ -258,6 +258,16 @@ Key Points:`;
 });
 
 
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ 
+    status: "OK", 
+    timestamp: new Date().toISOString(),
+    project_id: project_id,
+    location: location
+  });
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`🚀 Legal Helper Backend Server`);
@@ -265,4 +275,5 @@ app.listen(port, () => {
   console.log(`📍 Location: ${location}`);
   console.log(`🤖 Model: gemini-2.5-flash`);
   console.log(`📁 Service Account: ${keyFilename}`);
+  console.log(`🔗 CORS origin: ${process.env.FRONTEND_URL || "https://pactpal-frontend.onrender.com"}`);
 });
