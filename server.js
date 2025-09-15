@@ -10,12 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 dotenv.config({ path: join(__dirname, '.env') });
-
-const keyFilename = join(__dirname, "keys", "my_key.json"); 
 // 👆 make sure your JSON key is in /keys/service-account.json
-
-// Set the environment variable for authentication
-process.env.GOOGLE_APPLICATION_CREDENTIALS = keyFilename;
 
 const project_id = process.env.GCLOUD_PROJECT_ID;
 const location = process.env.GCLOUD_LOCATION ;
@@ -286,6 +281,6 @@ app.listen(port, () => {
   console.log(`🔧 Project ID: ${project_id}`);
   console.log(`📍 Location: ${location}`);
   console.log(`🤖 Model: gemini-2.5-flash`);
-  console.log(`📁 Service Account: ${keyFilename}`);
+  console.log(`📁 Service Account: ${serviceAccount.project_id}`);
   console.log(`🔗 CORS origin: ${process.env.FRONTEND_URL || "https://pactpal-frontend.onrender.com"}`);
 });
