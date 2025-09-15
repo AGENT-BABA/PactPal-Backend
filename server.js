@@ -24,8 +24,8 @@ const location = process.env.GCLOUD_LOCATION ;
 const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
 
 const vertex_ai = new VertexAI({
-  project: process.env.GOOGLE_PROJECT_ID,
-  location: process.env.GOOGLE_LOCATION,
+  project: process.env.GCLOUD_PROJECT_ID,
+  location: process.env.GCLOUD_LOCATION,
   credentials: {
     client_email: serviceAccount.client_email,
     private_key: serviceAccount.private_key
